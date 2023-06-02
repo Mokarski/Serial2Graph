@@ -3,6 +3,9 @@ import re
 import pyqtgraph as pg
 import numpy as np
 import psutil
+import datetime
+from datetime import date
+
 
 
 #INIT COM PORT
@@ -16,6 +19,14 @@ except serial.SerialException as e:
     # There is no new data from serial port
     print("No COM port")
 
+def write_data_log(data_in):
+    current_date = date.today()
+    file = open(str(current_date)+"_data_log.txt", "a")
+    dt_now = datetime.datetime.now()
+    file.write(str(dt_now)+";"+str(data_in)+";")
+    file.write('\n')
+    file.close()
+
 ret_data = []
 def read_port(): #SERIAL OPERATION
 
@@ -26,6 +37,7 @@ def read_port(): #SERIAL OPERATION
     cls_data = re.split("'", str(cls_data))
     print("ret_data arr[1]^", str(cls_data[1]))
     ret_data.append(int(cls_data[1]))
+    write_data_log(cls_data[1])
     print(cls_data[1])
     plot.setData(ret_data, pen='g')
 
@@ -52,7 +64,7 @@ if __name__ == '__main__':
     p.showGrid(x=True, y=True)  # Open the form of X and Y
     p.setRange(xRange=[0, historyLength], yRange=[0, 100000], padding=0)
     p.setLabel(axis='left', text='Measured')  #
-    p.setLabel(axis='bottom', text='time')
+    p.setLabel(axis='bottom', text='time ms')
     p.setTitle('Real-time data')  #
     plot = p.plot()
 
