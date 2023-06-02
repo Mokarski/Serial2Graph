@@ -8,7 +8,7 @@ import psutil
 #INIT COM PORT
 portx = "COM3"
 bps = 115200
-timex = 5
+timex = 2
 # Последовательный порт выполняется до тех пор, пока он не будет открыт, а затем использование команды open сообщит об ошибке
 try:
     ser = serial.Serial(portx, int(bps), timeout=1, parity=serial.PARITY_NONE, stopbits=1)
@@ -58,6 +58,6 @@ if __name__ == '__main__':
 
     timer = pg.QtCore.QTimer()
     timer.timeout.connect(read_port)  # Timed refresh data display
-    timer.start(1000)  # How much MS calls once
+    timer.start(200)  # How much MS calls once
 
     app.exec_()
