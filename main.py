@@ -7,9 +7,9 @@ import datetime
 from datetime import date
 
 
-
+ser_num = input("Введите номер порта 1-5: ")
 #INIT COM PORT
-portx = "COM3"
+portx = "COM"+ser_num
 bps = 115200
 timex = 2
 # Последовательный порт выполняется до тех пор, пока он не будет открыт, а затем использование команды open сообщит об ошибке
@@ -55,8 +55,8 @@ if __name__ == '__main__':
     # pyqtgragh initialization
     # Create a window
     app = pg.mkQApp()  # Establish a app
-    win = pg.GraphicsLayoutWidget(show=True, title="Basic plotting examples")  # Create a window
-    win.setWindowTitle(u'Pyqtgraph Real Time Waveform Display Tool')
+    win = pg.GraphicsLayoutWidget(show=True, title="Serial2Display")  # Create a window
+    win.setWindowTitle(u'Real Time Waveform Display Tool AAV2023')
     win.resize(800, 500)  #
     # Create a chart
     historyLength = 10000  # How many points we are remember
